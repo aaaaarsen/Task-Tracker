@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "description": "Buy milk",
+    "status": "todo",
+    "createdAt": "2025-12-18T01:36:55.2939833+05:00",
+    "updatedAt": "2025-12-18T01:36:55.2939833+05:00"
+  },
+  {
+    "id": 2,
+    "description": "Buy bread",
+    "status": "todo",
+    "createdAt": "2025-12-18T01:37:04.3118502+05:00",
+    "updatedAt": "2025-12-18T01:37:04.3118502+05:00"
+  },
+  {
+    "id": 3,
+    "description": "Buy cola",
+    "status": "todo",
+    "createdAt": "2025-12-18T01:37:41.5160702+05:00",
+    "updatedAt": "2025-12-18T01:37:41.5160702+05:00"
+  }
+]
