@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 	"strings"
+	"strconv"
 )
 
 type Task struct {
@@ -86,7 +87,139 @@ func main() {
 		fmt.Printf("Task added succesfully! ID: %d\n", newTask.ID)
 		
 	} else if command == "list" {
-		fmt.Println("LIST command called")
+		tasks:= loadTasks()
+
+		if len(tasks) == 0{
+			fmt.Println("No tasks found")
+			os.Exit(1)
+		}
+
+		for _, t := range tasks {
+			fmt.Printf(
+				"ID: %d, description: %s\nStatus: %s\nCreated at: %v\nUpdated at: %v\n-------\n",
+				t.ID, t.Description, t.Status, t.CreatedAt.Format("2006-01-02 15:04"), t.UpdatedAt.Format("2006-01-02 15:04"))
+		}
+
+	} else if command == "delete"{
+		if len(args) < 2{
+			fmt.Println("Error: ID is required")
+			os.Exit(1)
+		} 
+
+		val, err := strconv.Atoi(args[1])
+		if err != nil {
+			fmt.Println("Error: Input is not a valid integer")
+			os.Exit(1)
+		}
+		
+		tasks := loadTasks()
+		var updatedTasks []Task
+		found := false
+
+		for _, v := range tasks {
+			if v.ID != val{
+				updatedTasks = append(updatedTasks, v)
+			} else {
+				found = true
+			}
+		}
+
+		if !found {
+			fmt.Printf("Task with ID %d not found\n", val)
+			os.Exit(1)
+		}
+
+		saveTasks(updatedTasks)
+		fmt.Printf("Task with ID %d deleted successfully\n", val)
+
+	} else if command == "mark-done"{
+		if len(args) < 2{
+			fmt.Println("Error: ID is required")
+			os.Exit(1)
+		}
+
+		val, err := strconv.Atoi(args[1])
+		if err != nil {
+			fmt.Println("Error: Input is not a valid integer")
+			os.Exit(1)
+		}
+
+		tasks := loadTasks()
+		found := false
+
+		for i, _ := range tasks{
+			if val == tasks[i].ID{
+				tasks[i].Status = "done"
+				tasks[i].UpdatedAt = time.Now()
+			} else {
+				found = true
+			}
+		}
+
+		if !found {
+			fmt.Printf("Task with ID %d not found\n", val)
+			os.Exit(1)
+		}
+
+		saveTasks(tasks)
+		fmt.Printf("Status of the task with ID %d changed successfully\n", val)
+
+	} else if command == "mark-in-progress"{
+		if len(args) < 2{
+			fmt.Println("Error: ID is required")
+			os.Exit(1)
+		}
+
+		val, err := strconv.Atoi(args[1])
+		if err != nil {
+			fmt.Println("Error: Input is not a valid integer")
+			os.Exit(1)
+		}
+
+		tasks := loadTasks()
+		found := false
+
+		for i, _ := range tasks{
+			if val == tasks[i].ID{
+				tasks[i].Status = "in progress"
+				tasks[i].UpdatedAt = time.Now()
+			} else {
+				found = true
+			}
+		}
+
+		if !found {
+			fmt.Printf("Task with ID %d not found\n", val)
+			os.Exit(1)
+		}
+
+		saveTasks(tasks)
+		fmt.Printf("Status of the task with ID %d changed successfully\n", val)
+
+	} else if command == "update"{
+		if len(args) < 2 {
+			fmt.Println("description is required")
+			os.Exit(1)
+		}
+
+		val, err := strconv.Atoi(args[1])
+		if err != nil {
+			fmt.Println("Error: Input is not a valid integer")
+			os.Exit(1)
+		}
+		description := strings.Join(args[2:], " ")
+
+		tasks := loadTasks()
+
+		for i,_ := range tasks {
+			if tasks[i].ID == val{
+				tasks[i].Description = description
+			}
+		}
+
+		saveTasks(tasks)
+		fmt.Printf("Description of the task with ID %d changed successfully\n", val)
+
 	} else {
 		fmt.Println("Unknown command called", command)
 	}
