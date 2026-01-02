@@ -1,16 +1,16 @@
 [
   {
     "id": 1,
-    "description": "Buy milk",
-    "status": "todo",
-    "createdAt": "2025-12-18T01:36:55.2939833+05:00",
-    "updatedAt": "2025-12-18T01:36:55.2939833+05:00"
+    "description": "practice golang",
+    "status": "in-progress",
+    "createdAt": "2025-12-30T21:08:18.5765164+05:00",
+    "updatedAt": "2025-12-30T21:08:26.9744437+05:00"
   },
   {
     "id": 2,
-    "description": "eat soup",
-    "status": "in progress",
-    "createdAt": "2025-12-30T16:36:51.683844+05:00",
-    "updatedAt": "2025-12-30T17:19:34.4892876+05:00"
+    "description": "go ps",
+    "status": "todo",
+    "createdAt": "2025-12-30T21:08:34.0977055+05:00",
+    "updatedAt": "2025-12-30T21:08:34.0977055+05:00"
   }
 ]
